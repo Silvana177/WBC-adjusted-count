@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Calculator</title>
+
+    <style>
+        body { font-family: Arial, sans-serif; text-align: left; padding: 50px; }
+        input, button { margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Synovial White Blood Cell Count</h2>
+
+    <label>Peripheral WBCs:</label>
+    <input type="number" id="pWBC"><br>
+
+    <label>Peripheral RBCs:</label>
+    <input type="number" id="pRBC"><br>
+
+    <label>Joint WBCs:</label>
+    <input type="number" id="jWBC"><br>
+
+    <label>Joint RBCs:</label>
+    <input type="number" id="jRBC"><br>
+
+    <button onclick="calculateRisk()" style="background-color: #FCD116; color: black; padding: 10px; border: none; cursor: pointer;">Calculate</button>
+
+    <h3>Result: <span id="result">---</span> </h3>
+
+    <script>
+        function calculateRisk() {
+            let pWBC = document.getElementById('pWBC').value;
+            let pRBC = document.getElementById('pRBC').value;
+            let jWBC = document.getElementById('jWBC').value;
+            let jRBC = document.getElementById('jRBC').value;
+            let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);// calculates force
+
+            if (!isNaN(WBC_adjusted) && pWBC !== '' && pRBC !== '' && jWBC != '' && jRBC != '') {
+                document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' uL';
+            } else {
+                document.getElementById('result').textContent = 'Please enter valid numbers';
+            }
+        }
+    </script>
+</body>
+</html>
