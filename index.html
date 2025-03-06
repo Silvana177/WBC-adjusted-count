@@ -39,7 +39,7 @@
             let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);// calculates force
 
             if (!isNaN(WBC_adjusted) && pWBC !== '' && pRBC !== '' && jWBC != '' && jRBC != '') {
-                document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' uL';
+                document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + 'cells/uL';
             } else {
                 document.getElementById('result').textContent = 'Please enter valid numbers';
             }
