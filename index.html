@@ -14,22 +14,23 @@
 <body>
     <h2>Synovial White Blood Cell Count</h2>
 
-    Estimates the white blood cell (WBC) count in the synovial fluid of the aspirated joint. 
+    Estimates the adjusted white blood cell (WBC) count in the synovial fluid of the aspirated joint based on
+    the peripheral WBCs, the peripheral red blood cells (RBCs), the joint or synovial WBCs, and the joint RBCs.
     A WBC count of 3,000 cells/µL or higher indicates a high risk of infection. <br>
 
     <label>Peripheral WBCs:</label>
-    <input type="number" id="pWBC"><br>
+    <input type="number" id="pWBC">cells/µL<br>
 
     <label>Peripheral RBCs:</label>
-    <input type="number" id="pRBC"><br>
+    <input type="number" id="pRBC">cells/µL<br>
 
     <label>Joint WBCs:</label>
-    <input type="number" id="jWBC"><br>
+    <input type="number" id="jWBC">cells/µL<br>
 
     <label>Joint RBCs:</label>
-    <input type="number" id="jRBC"><br>
+    <input type="number" id="jRBC">cells/µL<br>
 
-    <button onclick="calculateRisk()" style="background-color: #FCD116; color: black; padding: 10px; border: none; cursor: pointer;">Calculate</button>
+    <button onclick="calculateRisk()" style="background-color: #FCD116; color: black; padding: 20px; border: none; cursor: pointer;">Calculate</button>
 
     <h3>Result: <span id="result">---</span> </h3>
 
