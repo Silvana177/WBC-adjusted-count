@@ -14,6 +14,8 @@
 <body>
     <h2>Synovial White Blood Cell Count</h2>
 
+    Estimates the white blood cell count in the synovial fluid of the joint...<br>
+
     <label>Peripheral WBCs:</label>
     <input type="number" id="pWBC"><br>
 
@@ -39,7 +41,7 @@
             let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);// calculates force
 
             if (!isNaN(WBC_adjusted) && pWBC !== '' && pRBC !== '' && jWBC != '' && jRBC != '') {
-                document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + 'cells/uL';
+                document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL';
             } else {
                 document.getElementById('result').textContent = 'Please enter valid numbers';
             }
