@@ -7,16 +7,29 @@
     <title>Risk Calculator</title>
 
     <style>
-        body { font-family: Arial, sans-serif; text-align: left; padding: 50px; }
-        input, button { margin: 10px; padding: 10px; }
+        body { font-family: Arial, sans-serif; text-align: justify;; padding: 50px; }
+        input, button { margin: 15px; padding: 5px;}
+        p {line-height: 1.5}
+        h2 {
+          font-size: 31px;
+          line-height: 1.5;
+        }
+        .positive {
+          color: green;
+        }
+        .negative {
+          color: red;
+        }
     </style>
 </head>
 <body>
-    <h2>Synovial White Blood Cell Count</h2>
+    <h2> Adjusted Synovial White Blood Cell Count</h2>
 
-    Estimates the adjusted white blood cell (WBC) count in the synovial fluid of the aspirated joint based on
+    <p>Estimates the adjusted white blood cell (WBC) count in the synovial fluid of the aspirated joint based on
     the peripheral WBCs, the peripheral red blood cells (RBCs), the joint or synovial WBCs, and the joint RBCs.
-    A WBC count of 3,000 cells/µL or higher indicates a high risk of infection. <br>
+    A WBC count of 3,000 cells/µL or higher indicates a high risk of infection. <br></p>
+    <p2> Make sure you use cells/µL as units for your input variables.
+      <br><br>
 
     <label>Peripheral WBCs:</label>
     <input type="number" id="pWBC">cells/µL<br>
@@ -30,24 +43,54 @@
     <label>Joint RBCs:</label>
     <input type="number" id="jRBC">cells/µL<br>
 
-    <button onclick="calculateRisk()" style="background-color: #FCD116; color: black; padding: 20px; border: none; cursor: pointer;">Calculate</button>
+    <form id="agreementform">
+      <label>
+        <input type="checkbox" id="agreecheckbox">
+        I understand that the information I receive here is not meant to replace my own
+        physician's advice, and agree to the <a href="https://uihc.org/hipaa-notice-privacy-practices-english" target="_blank" id="disclaimerLink">diclaimer</a>.
+      </label>
+      <br>
+    </form>
+    <p id="message"></p>
+    <button onclick="calculateRisk()" style="font-size: 15px ;background-color: #FCD116; color: black; padding: 15px; border: none; cursor: pointer;">Calculate</button>
 
     <h3>Result: <span id="result">---</span> </h3>
 
     <script>
+
         function calculateRisk() {
+            let checkbox = document.getElementById('agreecheckbox');
+            let message = document.getElementById('message');
             let pWBC = document.getElementById('pWBC').value;
             let pRBC = document.getElementById('pRBC').value;
             let jWBC = document.getElementById('jWBC').value;
             let jRBC = document.getElementById('jRBC').value;
-            let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);// calculates force
+            let largespace = " ".repeat(5000);
 
-            if (!isNaN(WBC_adjusted) && pWBC !== '' && pRBC !== '' && jWBC != '' && jRBC != '') {
+            if (checkbox.checked) {
+              message.textContent = "";
+              if (pWBC !== '' && pRBC !== '' && jWBC != '' && jRBC != '') {
+                let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);// calculates WBC adjusted
                 document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL';
-            } else {
+                document.getElementById('result').classList.remove('positive', 'negative');
+                if (WBC_adjusted <0) {
+                  document.getElementById('result').textContent = 'Result not valid (negative), please check your inputs.';
+                } else if (WBC_adjusted < 3000) {
+                  document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL' + largespace + '(Low Risk)';
+                  document.getElementById('result').classList.add('positive');
+                }  else {
+                  document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL' + largespace + '(High Risk)';
+                  document.getElementById('result').classList.add('negative');
+                }
+              } else {
                 document.getElementById('result').textContent = 'Please enter valid numbers';
             }
+          } else {
+                message.textContent = "You must agree to the disclaimer before submiting.";
+                message.style.color = 'red';
         }
+      }
     </script>
 </body>
 </html>
+
