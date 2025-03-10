@@ -47,14 +47,15 @@
       <label>
         <input type="checkbox" id="agreecheckbox">
         I understand that the information I receive here is not meant to replace my own
-        physician's advice, and agree to the <a href="https://uihc.org/hipaa-notice-privacy-practices-english" target="_blank" id="disclaimerLink">diclaimer</a>.
+        physician's advice, and agree to the <a href="https://uihc.org/hipaa-notice-privacy-practices-english" target="_blank" id="disclaimerLink">disclaimer</a>.
       </label>
       <br>
     </form>
     <p id="message"></p>
     <button onclick="calculateRisk()" style="font-size: 15px ;background-color: #FCD116; color: black; padding: 15px; border: none; cursor: pointer;">Calculate</button>
 
-    <h3>Result: <span id="result">---</span> </h3>
+    <h3>Adjusted Result: <span id="result">---</span> </h3>
+    <h4>Not Adjusted Result: <span id="result 2">---</span> </h4>
 
     <script>
 
@@ -73,13 +74,16 @@
                 let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);// calculates WBC adjusted
                 document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL';
                 document.getElementById('result').classList.remove('positive', 'negative');
+                  
+                let WBC_parvizi = jWBC - ((pWBC/pRBC)*jRBC);
+                document.getElementById('result2').textContent = WBC_parvizi.toFixed(2) + cells/µL';
                 if (WBC_adjusted <0) {
                   document.getElementById('result').textContent = 'Result not valid (negative), please check your inputs.';
                 } else if (WBC_adjusted < 3000) {
-                  document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL' + largespace + '(Low Risk)';
+                  document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL';
                   document.getElementById('result').classList.add('positive');
                 }  else {
-                  document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL' + largespace + '(High Risk)';
+                  document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL';
                   document.getElementById('result').classList.add('negative');
                 }
               } else {
