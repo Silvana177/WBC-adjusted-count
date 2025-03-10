@@ -38,16 +38,16 @@
       <br><br>
 
     <label>Peripheral WBCs:</label>
-    <input type="number" id="pWBC">cells/µL<br>
+    <input type="number" id="pWBC">thousand cells/µL<br>
 
     <label>Peripheral RBCs:</label>
-    <input type="number" id="pRBC">cells/µL<br>
+    <input type="number" id="pRBC">million cells/µL<br>
 
     <label>Joint WBCs:</label>
-    <input type="number" id="jWBC">cells/µL<br>
+    <input type="number" id="jWBC">thousand cells/µL<br>
 
     <label>Joint RBCs:</label>
-    <input type="number" id="jRBC">cells/µL<br>
+    <input type="number" id="jRBC">million cells/µL<br>
 
     <form id="agreementform">
       <label>
@@ -76,10 +76,10 @@
             if (checkbox.checked) {
               message.textContent = "";
               if (pWBC !== '' && pRBC !== '' && jWBC != '' && jRBC != '') {
-                let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);
+                let WBC_adjusted = ((jRBC*1000000*pWBC*1000)-(pRBC*1000000*jWBC*1000))/(jRBC*1000000-pRBC*1000000);
                 document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL';
                 document.getElementById('result').classList.remove('positive', 'negative');
-                let WBC_parvizi = jWBC - ((pWBC/pRBC)*jRBC);
+                let WBC_parvizi = (jWBC*1000) - (((pWBC*1000)/(pRBC*1000000))*jRBC*1000000);
                 document.getElementById('result 2').textContent = WBC_parvizi.toFixed(2) + ' cells/µL';
                 if (WBC_adjusted <0) {
                   document.getElementById('result').textContent = 'Result not valid (negative), please check your inputs.';
