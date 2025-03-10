@@ -72,15 +72,13 @@
             let pRBC = document.getElementById('pRBC').value;
             let jWBC = document.getElementById('jWBC').value;
             let jRBC = document.getElementById('jRBC').value;
-            let largespace = " ".repeat(5000);
 
             if (checkbox.checked) {
               message.textContent = "";
               if (pWBC !== '' && pRBC !== '' && jWBC != '' && jRBC != '') {
-                let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);// calculates WBC adjusted
+                let WBC_adjusted = ((jRBC*pWBC)-(pRBC*jWBC))/(jRBC-pRBC);
                 document.getElementById('result').textContent = WBC_adjusted.toFixed(2) + ' cells/µL';
                 document.getElementById('result').classList.remove('positive', 'negative');
-                  
                 let WBC_parvizi = jWBC - ((pWBC/pRBC)*jRBC);
                 document.getElementById('result 2').textContent = WBC_parvizi.toFixed(2) + cells/µL';
                 if (WBC_adjusted <0) {
